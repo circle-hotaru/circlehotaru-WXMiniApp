@@ -32,24 +32,3 @@ page {
   font-size: 14px;
   color: #3f3f3f;
 }
-
-.card {
-  width: 80%;
-  padding: 20px;
-  margin: 30px auto;
-
-  background-color: white;
-
-  box-shadow: 2px 2px 1px 1px lightgrey;
-}
-
-.card_title {
-  font-size: 18px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.card_footer {
-  text-align: right;
-  margin-top: 20px;
-}

@@ -9,7 +9,7 @@
   width: 90%;
 }
 
-.color_warpper {
+.color_wrapper {
   margin: 20px auto;
 }
 .color_title {
@@ -43,4 +43,21 @@
 
 .text_shadow {
   text-shadow: 2px 2px 1px lightgrey;
+}
+
+.bgm_section {
+  width: 90%;
+  margin: 10px auto;
+}
+
+.section_title {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.bgm_wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
 }

@@ -14,7 +14,9 @@ Page({
       { name: '珊瑚粉', value: '#f4c2c2'},
       { name: '蛋白色', value: '#fce6c9'},
       { name: '蓝绿色', value: '#58e2c2'},
-    ]
+    ],
+
+    bgm_on: false,
   },
 
   /**
@@ -91,9 +93,18 @@ Page({
   goToClock: function() {
     var text_color = this.data.text_color;
     var background_color = this.data.background_color;
+    var bgm_on = this.data.bgm_on;
 
     wx.navigateTo({
-      url: './FS_clock?text_color=' + text_color + '&background_color=' + background_color,
+      url: './FS_clock?text_color=' + text_color + '&background_color=' + background_color + '&bgm_on=' + bgm_on,
+    })
+  },
+
+  changeBgm: function() {
+    var bgm_on = this.data.bgm_on;
+
+    this.setData({
+      bgm_on: !bgm_on,
     })
   }
 })

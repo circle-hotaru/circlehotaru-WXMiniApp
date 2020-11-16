@@ -1,5 +1,6 @@
 // miniprogram/pages/clock/FS_clock.js.js
 var interval_id = null;
+var bgm = wx.getBackgroundAudioManager();
 
 Page({
 
@@ -9,6 +10,8 @@ Page({
   data: {
     text_color: "#fff",
     background_color: "#000",
+    bgm_on: false,
+    bgm_url: null,
 
     hour: "00",
     minute: "00",
@@ -18,10 +21,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
     this.setData({
       text_color: options.text_color,
-      background_color: options.background_color
+      background_color: options.background_color,
+      bgm_on: (options.bgm_on == 'true') ? true : false,
     });
+
+    
 
     var navigation_text_color = options.background_color == "#fff" ? "#000000" : "#ffffff";
     
@@ -41,6 +48,17 @@ Page({
     this.updateTime();
 
     var that = this;
+
+    if (that.data.bgm_on) { 
+      bgm.title = "Gypsophila";
+      bgm.epname = "Gypsophila";
+      bgm.singer = "MoreanP"
+      that.getMusicUrl();
+      bgm.onEnded(() => {
+        player();  // 音乐循环播放
+      })   
+  }; 
+
     interval_id = setInterval(function(){that.updateTime()}, 1000);
   },
 
@@ -70,6 +88,8 @@ Page({
    */
   onUnload: function () {
     clearInterval(interval_id);
+    
+    bgm.pause();
 
     wx.setKeepScreenOn({
       keepScreenOn: false,
@@ -106,6 +126,21 @@ Page({
     this.setData({
       hour: ('0' + current_time.getHours()).slice(-2),
       minute: ('0' + current_time.getMinutes()).slice(-2),
+    })
+  },
+
+  getMusicUrl: function(){
+    wx.request({
+      url: 'http://165.22.101.31:3000/song/url',
+      data: {
+        id: '34183389'
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+          bgm.src = res.data.data[0].url
+      }
     })
   }
 })

@@ -2,7 +2,7 @@
 <view class="container">
   <view class="preview" style="color:{{text_color}}; background:{{background_color}};">00:00</view>
   <view class="color_section">
-    <view class="color_warpper">
+    <view class="color_wrapper">
       <view class="color_title">背景颜色</view>
       <view class="color_options">
         <view class="color_option" wx:for="{{colors}}" wx:key="value" data-value="{{item.value}}" bindtap="changeBackgroundColor">
@@ -12,7 +12,7 @@
       </view>
     </view>
 
-    <view class="color_warpper">
+    <view class="color_wrapper">
       <view class="color_title">字体颜色</view>
       <view class="color_options">
         <view class="color_option" wx:for="{{colors}}" wx:key="value" data-value="{{item.value}}" bindtap="changeTextColor">
@@ -20,6 +20,14 @@
           <view class="color_option_name {{ text_color == item.value ? 'text_shadow' : '' }}">{{item.name}}</view>
         </view>
       </view>
+    </view>
+  </view>
+
+  <view class="bgm_section">
+    <view class="section_title">设置bgm</view>
+    <view class="bgm_wrapper">
+      <view class="bgm_label">是否播放白噪音</view>
+      <switch type="checkbox" checked="{{bgm_on}}" bindchange="changeBgm" color="#58e2c2"></switch>
     </view>
   </view>
 
