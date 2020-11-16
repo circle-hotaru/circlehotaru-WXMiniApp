@@ -1,0 +1,22 @@
+/* miniprogram/pages/clock/FS_clock.js.wxss */
+page {
+  width: 100%;
+  height: 100%;
+}
+
+.full_screen {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 40px;
+
+  font-family: 'Lucida Console', monospace;
+}
+
+.time_ele {
+  font-size: 120px;
+}

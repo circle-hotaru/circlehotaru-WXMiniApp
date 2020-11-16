@@ -1,0 +1,6 @@
+<!--miniprogram/pages/clock/FS_clock.js.wxml-->
+<view class="full_screen" style="color: {{ text_color }}; background-color: {{ background_color }}">
+  <view class="time_ele">{{hour}}</view>
+  <view>:</view>
+  <view class="time_ele">{{minute}}</view>
+</view>

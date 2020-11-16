@@ -1,0 +1,27 @@
+<!--miniprogram/pages/clock/clock.wxml-->
+<view class="container">
+  <view class="preview" style="color:{{text_color}}; background:{{background_color}};">00:00</view>
+  <view class="color_section">
+    <view class="color_warpper">
+      <view class="color_title">背景颜色</view>
+      <view class="color_options">
+        <view class="color_option" wx:for="{{colors}}" wx:key="value" data-value="{{item.value}}" bindtap="changeBackgroundColor">
+          <view class="color_option_color {{ background_color == item.value ? 'shadow' : '' }}" style="background:{{item.value}}"></view>
+          <view class="color_option_name {{ background_color == item.value ? 'text_shadow' : '' }}">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="color_warpper">
+      <view class="color_title">字体颜色</view>
+      <view class="color_options">
+        <view class="color_option" wx:for="{{colors}}" wx:key="value" data-value="{{item.value}}" bindtap="changeTextColor">
+          <view class="color_option_color {{ text_color == item.value ? 'shadow' : '' }}" style="background:{{item.value}}"></view>
+          <view class="color_option_name {{ text_color == item.value ? 'text_shadow' : '' }}">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button class="primary" bindtap="goToClock">进入时钟</button>
+</view>

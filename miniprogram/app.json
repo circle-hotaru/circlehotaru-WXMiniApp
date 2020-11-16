@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/clock/clock",
+    "pages/info/info",
+    "pages/clock/FS_clock"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "圆萤计时器",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#fff",
+    "selectedColor": "#fff",
+    "backgroundColor": "#58e2c2",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/clock/clock",
+        "text": "时钟",
+        "iconPath": "images/clock.png",
+        "selectedIconPath": "images/clock.png"
+      },
+      {
+        "pagePath": "pages/info/info",
+        "text": "信息",
+        "iconPath": "images/info.png",
+        "selectedIconPath": "images/info.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}
