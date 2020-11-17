@@ -1,7 +1,9 @@
 //app.js
+import { promisifyAll, promisify } from 'wx-promise-pro'
 
 // auto check update
 // https://blog.csdn.net/original_heart/article/details/84258985
+
 var check_update = new Promise(function(resolve, reject){
   const updateManager = wx.getUpdateManager();
   updateManager.onCheckForUpdate(function(res){
@@ -43,5 +45,8 @@ App({
     })
 
     this.globalData = {}
+
+    // promisify all wx‘s api
+    promisifyAll()
   }
 })

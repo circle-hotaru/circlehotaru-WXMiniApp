@@ -11,7 +11,7 @@ Page({
     text_color: "#fff",
     background_color: "#000",
     bgm_on: false,
-    bgm_url: null,
+    bgm_playlist: [],
 
     hour: "00",
     minute: "00",
@@ -27,8 +27,6 @@ Page({
       background_color: options.background_color,
       bgm_on: (options.bgm_on == 'true') ? true : false,
     });
-
-    
 
     var navigation_text_color = options.background_color == "#fff" ? "#000000" : "#ffffff";
     
@@ -49,14 +47,8 @@ Page({
 
     var that = this;
 
-    if (that.data.bgm_on) { 
-      bgm.title = "Gypsophila";
-      bgm.epname = "Gypsophila";
-      bgm.singer = "MoreanP"
-      that.getMusicUrl();
-      bgm.onEnded(() => {
-        player();  // 音乐循环播放
-      })   
+    if (that.data.bgm_on) {
+      that.getPlaylist();
   }; 
 
     interval_id = setInterval(function(){that.updateTime()}, 1000);
@@ -129,18 +121,58 @@ Page({
     })
   },
 
-  getMusicUrl: function(){
-    wx.request({
-      url: 'http://165.22.101.31:3000/song/url',
+  getPlaylist: function(){
+    let songs_id = [];
+    let songs_id_filter = [];
+    wx.pro.request({
+      url: 'http://127.0.0.1:3000/playlist/detail',
       data: {
-        id: '34183389'
+        id: '2587619632'
       },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success (res) {
-          bgm.src = res.data.data[0].url
-      }
+      header: {'content-type': 'application/json'}
+    }).then(res => {
+      songs_id = res.data.privileges;
+      songs_id.forEach(element => {
+        songs_id_filter.push(element.id)
+      });
+      return songs_id_filter
+    }).then(res => {
+    Promise.all(res.map(id => {
+      return new Promise(function(resolve, reject){
+        wx.pro.request({
+          url: 'http://127.0.0.1:3000/song/url',
+          data: {
+            id: id
+          },
+          method: 'GET',
+          header: {'content-type': 'application/json'}
+        }).then(res => {
+          resolve(res.data.data[0].url)
+        }).catch(err => {
+          console.log(err);
+        })
+      })
+    })).then(res => {
+      this.setData({
+        bgm_playlist: res
+      });
+      console.log(this.data.bgm_playlist);
+      let i = 0; 
+      bgm.title = "Gypsophila";
+      bgm.epname = "Gypsophila";
+      bgm.singer = "MoreanP"
+      bgm.src = this.data.bgm_playlist[0]   
+      bgm.onEnded(() => {
+        i++;
+        if ( i === this.data.bgm_playlist.length ) {
+          i = 0;
+        } else {
+          bgm.src = this.data.bgm_playlist[i];
+        }
+      })
     })
-  }
+    }).catch(err => {
+      console.log(err);
+    })
+  },
 })
