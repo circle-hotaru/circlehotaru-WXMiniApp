@@ -1,5 +1,6 @@
 //app.js
-import { promisifyAll, promisify } from 'wx-promise-pro'
+var bgm = wx.getBackgroundAudioManager();
+var base_url = "http://127.0.0.1:3000/"
 
 // auto check update
 // https://blog.csdn.net/original_heart/article/details/84258985
@@ -27,6 +28,10 @@ var check_update = new Promise(function(resolve, reject){
 })
 
 App({
+  globalData: {
+    playlist: [],
+    songIndex: 0,
+  },
   onLaunch: function () {
     
     wx.cloud.init({
@@ -44,9 +49,77 @@ App({
       })
     })
 
-    this.globalData = {}
+    // 获取歌单
+    this.getPlaylist()
+  },
 
-    // promisify all wx‘s api
-    promisifyAll()
+  // 播放音乐 https://www.jianshu.com/p/e1d210a978a7
+
+  playMusic: function() {
+    let song = this.globalData.playlist[this.globalData.songIndex];
+    bgm.title = song.name || "音频标题";
+    bgm.epname = song.al.name || "专辑名称";
+    bgm.singer = song.ar[0].name || "歌手名";
+
+    // 获取单曲url
+    this.getSongUrl(song.id)
+
+    let that = this;
+
+    bgm.onPlay(function() {
+      console.log("======onPlay======");
+    });
+
+    bgm.onEnded(function() {
+      console.log("======onEnded======");
+      setTimeout(function() {
+        that.nextMusic();
+      }, 1500);
+    });
+  },
+  // 下一首 https://www.jianshu.com/p/e1d210a978a7
+  nextMusic: function() {
+    var that = this
+    let songIndex = that.globalData.songIndex < that.globalData.playlist.length - 1 ? that.globalData.songIndex + 1 : 0;
+      that.globalData.songIndex = songIndex,
+    setTimeout(function() {
+      that.playMusic();
+    }.bind(that), 1000);
+  },
+
+  // 获取歌单
+  getPlaylist: function(){
+    var that = this
+    wx.request({
+      url: base_url + 'playlist/detail',
+      data: {
+        id: '5340244661'
+      },
+      header: {'content-type': 'application/json'},
+      success(res) {
+          that.globalData.playlist = res.data.playlist.tracks
+      },
+      fail(err) {
+        console.log(err);
+      }
+    })
+  },
+
+  // 获取单曲url
+  getSongUrl: function (id) {
+    wx.request({
+      url: base_url + 'song/url',
+      data: {
+        id: id
+      },
+      method: 'GET',
+      header: {'content-type': 'application/json'},
+      success(res) {
+        bgm.src = res.data.data[0].url
+      },
+      fail(err) {
+        console.log(err);
+      }
+    })
   }
 })

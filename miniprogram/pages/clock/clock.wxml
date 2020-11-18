@@ -7,7 +7,6 @@
       <view class="color_options">
         <view class="color_option" wx:for="{{colors}}" wx:key="value" data-value="{{item.value}}" bindtap="changeBackgroundColor">
           <view class="color_option_color {{ background_color == item.value ? 'shadow' : '' }}" style="background:{{item.value}}"></view>
-          <view class="color_option_name {{ background_color == item.value ? 'text_shadow' : '' }}">{{item.name}}</view>
         </view>
       </view>
     </view>
@@ -17,7 +16,6 @@
       <view class="color_options">
         <view class="color_option" wx:for="{{colors}}" wx:key="value" data-value="{{item.value}}" bindtap="changeTextColor">
           <view class="color_option_color {{ text_color == item.value ? 'shadow' : '' }}" style="background:{{item.value}}"></view>
-          <view class="color_option_name {{ text_color == item.value ? 'text_shadow' : '' }}">{{item.name}}</view>
         </view>
       </view>
     </view>

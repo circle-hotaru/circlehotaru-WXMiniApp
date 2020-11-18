@@ -63,7 +63,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '高颜值全屏计时工具',
-      imageUrl: '../../images/share.jpg'
+      imageUrl: '../../images/awesome.jpg'
     }
   }
 })

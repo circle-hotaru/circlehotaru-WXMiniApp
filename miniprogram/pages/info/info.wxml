@@ -1,13 +1,15 @@
 <!--miniprogram/pages/info/info.wxml-->
 <view class="container">
+  <image src="../../images/awesome.jpg" mode="aspectFit" style="margin-top: 30px" />
   <view class="card">
-    <view class="card_title">更新 v0.0.1</view>
+    <view class="card_title">使用说明</view>
     <view class="card_content">
-      <view class="card_item">1. 修改UI</view>
-      <view class="card_item">2. 增加tabBar</view>
+      <view class="card_item">· 设计&开发&客服：@circle-hotaru</view>
+      <view class="card_item">· BGM来自网易云歌单：circlehotaru's BGM</view>
+      <view class="card_item">· 开发动机：学习的时候有个全屏时钟顺便听歌（不想听歌还要先看开屏广告）</view>
+      <view class="card_item">· Reference: Fliqlo, 全屏倒计时</view>
     </view>
-    <view class="card_footer">20201106</view>
   </view>
 
-  <button open-type="contact">联系客服</button>
+  <button open-type="contact">联系作者</button>
 </view>

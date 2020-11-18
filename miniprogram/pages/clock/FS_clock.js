@@ -1,6 +1,7 @@
 // miniprogram/pages/clock/FS_clock.js.js
 var interval_id = null;
 var bgm = wx.getBackgroundAudioManager();
+var app = getApp();
 
 Page({
 
@@ -11,7 +12,6 @@ Page({
     text_color: "#fff",
     background_color: "#000",
     bgm_on: false,
-    bgm_playlist: [],
 
     hour: "00",
     minute: "00",
@@ -45,11 +45,11 @@ Page({
 
     this.updateTime();
 
-    var that = this;
-
-    if (that.data.bgm_on) {
-      that.getPlaylist();
+    if (this.data.bgm_on) {
+      app.playMusic();
   }; 
+
+    var that = this
 
     interval_id = setInterval(function(){that.updateTime()}, 1000);
   },
@@ -108,7 +108,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '高颜值全屏计时工具',
-      imageUrl: '../../images/share.jpg'
+      imageUrl: '../../images/awesome.jpg'
     }
   },
 
@@ -118,61 +118,6 @@ Page({
     this.setData({
       hour: ('0' + current_time.getHours()).slice(-2),
       minute: ('0' + current_time.getMinutes()).slice(-2),
-    })
-  },
-
-  getPlaylist: function(){
-    let songs_id = [];
-    let songs_id_filter = [];
-    wx.pro.request({
-      url: 'http://127.0.0.1:3000/playlist/detail',
-      data: {
-        id: '2587619632'
-      },
-      header: {'content-type': 'application/json'}
-    }).then(res => {
-      songs_id = res.data.privileges;
-      songs_id.forEach(element => {
-        songs_id_filter.push(element.id)
-      });
-      return songs_id_filter
-    }).then(res => {
-    Promise.all(res.map(id => {
-      return new Promise(function(resolve, reject){
-        wx.pro.request({
-          url: 'http://127.0.0.1:3000/song/url',
-          data: {
-            id: id
-          },
-          method: 'GET',
-          header: {'content-type': 'application/json'}
-        }).then(res => {
-          resolve(res.data.data[0].url)
-        }).catch(err => {
-          console.log(err);
-        })
-      })
-    })).then(res => {
-      this.setData({
-        bgm_playlist: res
-      });
-      console.log(this.data.bgm_playlist);
-      let i = 0; 
-      bgm.title = "Gypsophila";
-      bgm.epname = "Gypsophila";
-      bgm.singer = "MoreanP"
-      bgm.src = this.data.bgm_playlist[0]   
-      bgm.onEnded(() => {
-        i++;
-        if ( i === this.data.bgm_playlist.length ) {
-          i = 0;
-        } else {
-          bgm.src = this.data.bgm_playlist[i];
-        }
-      })
-    })
-    }).catch(err => {
-      console.log(err);
     })
   },
 })

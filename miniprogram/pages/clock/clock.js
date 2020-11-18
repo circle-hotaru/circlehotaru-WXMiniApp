@@ -6,14 +6,19 @@ Page({
    */
   data: {
     text_color: '#fff',
-    background_color: '#000',
+    background_color: '#ff8040',
 
     colors: [
-      { name: '黑色', value: '#000'},
-      { name: '白色', value: '#fff'},
-      { name: '珊瑚粉', value: '#f4c2c2'},
-      { name: '蛋白色', value: '#fce6c9'},
-      { name: '蓝绿色', value: '#58e2c2'},
+      { name: '000000', value: '#000000'},
+      { name: 'f3eab3', value: '#f3eab3'},
+      { name: 'fcfaf1', value: '#fcfaf1'},
+      { name: '71ab7f', value: '#71ab7f'},
+      { name: '88d3ea', value: '#88d3ea'},
+      { name: '074f71', value: '#074f71'},
+      { name: 'daaa00', value: '#daaa00'},
+      { name: 'ff8040', value: '#ff8040'},
+      { name: 'ffffff', value: '#ffffff'},
+      { name: '434c5c', value: '#434c5c'},
     ],
 
     bgm_on: false,
@@ -74,7 +79,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '高颜值全屏计时工具',
-      imageUrl: '../../images/share.jpg'
+      imageUrl: '../../images/awesome.jpg'
     }
   },
 

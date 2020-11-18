@@ -5,14 +5,14 @@
     "pages/clock/FS_clock"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "圆萤计时器",
+    "navigationBarBackgroundColor": "#ff8040",
+    "navigationBarTitleText": "圆萤时钟",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#fff",
     "selectedColor": "#fff",
-    "backgroundColor": "#58e2c2",
+    "backgroundColor": "#ff8040",
     "borderStyle": "white",
     "list": [
       {

@@ -1,11 +1,11 @@
 # 圆萤计时器
 
-模仿时钟屏保Fliqlo的微信小程序
+全屏时钟微信小程序。
 
 ## Features
 
 - Clock
-- BGM
+- BGM（需后端支持，下载启动[网易云音乐 Node.js API service](https://github.com/Binaryify/NeteaseCloudMusicApi)）
 
 ## Technology stack
 
