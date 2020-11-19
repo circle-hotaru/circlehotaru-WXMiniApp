@@ -108,7 +108,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '高颜值全屏计时工具',
-      imageUrl: '../../images/awesome.jpg'
+      imageUrl: '../../images/share.png'
     }
   },
 

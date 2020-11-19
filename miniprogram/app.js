@@ -1,6 +1,6 @@
 //app.js
 var bgm = wx.getBackgroundAudioManager();
-var base_url = "http://127.0.0.1:3000/"
+// var base_url = "https://service-33fttaxy-1300353162.gz.apigw.tencentcs.com/release/NeteaseCloudMusicApi:3000/"
 
 // auto check update
 // https://blog.csdn.net/original_heart/article/details/84258985
@@ -39,7 +39,7 @@ App({
       //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
       //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
       //   如不填则使用默认环境（第一个创建的环境）
-      // env: 'my-env-id',
+      env: 'circlehotaru-3gjnuka0d0650218',
       traceUser: true,
     })
 
@@ -90,36 +90,19 @@ App({
   // 获取歌单
   getPlaylist: function(){
     var that = this
-    wx.request({
-      url: base_url + 'playlist/detail',
-      data: {
-        id: '5340244661'
-      },
-      header: {'content-type': 'application/json'},
-      success(res) {
-          that.globalData.playlist = res.data.playlist.tracks
-      },
-      fail(err) {
-        console.log(err);
-      }
-    })
+    wx.cloud.callFunction({ name:"getPlaylist",data:{
+      "id":"5340244661"
+    }}).then(res => {
+      that.globalData.playlist = res.result.playlist.tracks      
+    }).catch(console.error)
   },
 
   // 获取单曲url
   getSongUrl: function (id) {
-    wx.request({
-      url: base_url + 'song/url',
-      data: {
-        id: id
-      },
-      method: 'GET',
-      header: {'content-type': 'application/json'},
-      success(res) {
-        bgm.src = res.data.data[0].url
-      },
-      fail(err) {
-        console.log(err);
-      }
-    })
+    wx.cloud.callFunction({ name:"getSongUrl",data:{
+      "id": id
+    }}).then(res => {  
+      bgm.src = res.result.data[0].url 
+    }).catch(console.error)
   }
 })
